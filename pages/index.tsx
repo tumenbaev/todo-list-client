@@ -27,8 +27,11 @@ const Index: NextFunctionComponent<Props> = props => {
     })
   }
 
-  const handleDelete = () => {
-    // todo
+  const handleDelete = (id: string) => {
+    dispatch({
+      type: 'delete',
+      id
+    })
   }
 
   return (
@@ -39,9 +42,6 @@ const Index: NextFunctionComponent<Props> = props => {
         </div>
       </form>
       <ul className='collection'>
-        <li className='collection-item'>
-          <input placeholder='Placeholder' type='text' />
-        </li>
         {state.items.map((item: Item) => (
           <ListItem
             key={item.id}

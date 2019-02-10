@@ -31,10 +31,6 @@ const style = css`
     margin: 5px 0;
   }
 
-  a {
-    text-decoration: none;
-  }
-
   a:hover {
     opacity: 0.6;
   }

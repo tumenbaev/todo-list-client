@@ -1,5 +1,8 @@
 import itemReducer from './itemReducer'
-import { Action, State } from '../types'
+import { Action, Item, State } from '../types'
+import without from 'ramda/src/without'
+import find from 'ramda/src/find'
+import propEq from 'ramda/src/propEq'
 
 function itemsReducer (state: State, action: Action): State {
   const { items } = state
@@ -10,6 +13,12 @@ function itemsReducer (state: State, action: Action): State {
           item.id === action.id ? itemReducer(item, action) : item)
         )
       }
+    case 'delete':
+      const itemToDelete = find(propEq('id', action.id), items)
+
+      return itemToDelete ? {
+        items: without([itemToDelete as Item], items)
+      } : state
     default:
       return state
   }

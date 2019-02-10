@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@types/next": "^7.0.9",
+    "@types/ramda": "types/npm-ramda#dist",
     "@types/styled-jsx": "^2.2.7",
     "tslint": "^5.12.1",
     "tslint-config-standard": "^8.0.1",

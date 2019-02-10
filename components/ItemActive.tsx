@@ -32,13 +32,7 @@ function ItemLink ({ title, id, onSubmit }: Props) {
 const style = css`
   li {
     display: flex;
-    list-style: none;
-    margin: 5px 0;
     align-items: center;
-  }
-
-  a {
-    text-decoration: none;
   }
 
   a:hover {
