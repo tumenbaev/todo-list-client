@@ -1,7 +1,6 @@
 import { NextFunctionComponent } from 'next'
 import { useEffect, useReducer, useState } from 'react'
 import fetch from 'isomorphic-unfetch'
-import css from 'styled-jsx/css'
 import Layout from '../components/Layout'
 import ListItem from '../components/Item'
 import { Item, ItemData } from '../types'
@@ -54,7 +53,6 @@ const Index: NextFunctionComponent<Props> = props => {
           />
         ))}
       </ul>
-      <style jsx>{style}</style>
     </Layout>
   )
 }
@@ -74,15 +72,5 @@ Index.getInitialProps = async (): Promise<Props> => {
 
   return { items: getItems(itemsData) }
 }
-
-const style = css`
-  h1, a {
-    font - family: "Arial";
-  }
-
-  ul {
-    padding: 0;
-  }
-  `
 
 export default Index
