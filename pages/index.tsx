@@ -3,62 +3,15 @@ import { useEffect, useReducer, useState } from 'react'
 import fetch from 'isomorphic-unfetch'
 import css from 'styled-jsx/css'
 import Layout from '../components/Layout'
-import Item from '../components/Item'
-
-interface ItemData {
-  id: string,
-  content: string,
-  done: string
-}
-
-type Item = ItemData & {
-  active: boolean
-}
+import ListItem from '../components/Item'
+import { Item, ItemData } from '../types'
+import itemsReducer from '../reducers/itemsReducer'
 
 interface Props {
   items: Item[]
 }
 
-interface Action {
-  type: string
-  id?: string
-  content?: string
-}
-
-interface State {
-  items: Item[]
-}
-
-function itemReducer (item: Item, action: Action): Item {
-  switch (action.type) {
-    case 'edit':
-      return action.content ? {
-        ...item,
-        content: action.content
-      } : item
-    default:
-      return item
-  }
-}
-
-function itemsReducer (state: State, action: Action): State {
-  const { items } = state
-  switch (action.type) {
-    case 'edit' :
-      return {
-        items: items.map(item => (
-          item.id === action.id ? itemReducer(item, action) : item)
-        )
-      }
-    default:
-      return state
-  }
-}
-
-// const App: FunctionComponent<{}>
-
 const Index: NextFunctionComponent<Props> = props => {
-  // const [items, setItems] = useState(props.items)
   const [activeId, setActiveId] = useState('')
   const [state, dispatch] = useReducer(itemsReducer, { items: props.items })
   useEffect(() => {
@@ -90,7 +43,7 @@ const Index: NextFunctionComponent<Props> = props => {
           <input placeholder='Placeholder' type='text' />
         </li>
         {state.items.map((item: Item) => (
-          <Item
+          <ListItem
             key={item.id}
             id={item.id}
             activeId={activeId}
