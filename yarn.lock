@@ -731,6 +731,11 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
+"@tinkoff/utils@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@tinkoff/utils/-/utils-1.0.2.tgz#c27636cc134ac590d0bdf70b3a89f1d6eb50d5f2"
+  integrity sha512-ETq+XuWdRkTTNE/Nq8DY0dt+NcuPVbrRZknLFiUNzPEhdoO3alV6QqCp/R+5v74pi1CPud8vPvTkpRUbI1eWZQ==
+
 "@types/anymatch@*":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@types/anymatch/-/anymatch-1.3.0.tgz#d1d55958d1fccc5527d4aba29fc9c4b942f563ff"
