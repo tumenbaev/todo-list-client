@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import css from 'styled-jsx/css'
+import DispatchContext from '../utils/dispatch'
 
 interface Props {
   title: string
@@ -9,7 +10,15 @@ interface Props {
 
 function ItemLink ({ title, id, onSubmit }: Props) {
   const [value, setValue] = useState(title)
+  const dispatch = useContext(DispatchContext)
+
   const handleSubmit = (id: string) => {
+    dispatch({
+      type: 'edit',
+      id,
+      content: value
+    })
+
     onSubmit(id, value)
   }
 

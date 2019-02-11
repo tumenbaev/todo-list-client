@@ -17,7 +17,7 @@ function itemsReducer (state: State, action: Action): State {
       const itemToDelete = find(propEq('id', action.id), items)
 
       return itemToDelete ? {
-        items: without([itemToDelete as Item], items)
+        items: without([itemToDelete], items)
       } : state
     default:
       return state

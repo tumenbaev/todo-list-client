@@ -6,11 +6,10 @@ interface Props {
   title: string
   id: string
   onEdit (id: string): void
-  onDelete (id: string): void
   onSubmit (id: string, value: string): void
 }
 
-function Item ({ title, id, onEdit, onDelete, onSubmit, activeId }: Props) {
+function Item ({ title, id, onEdit, onSubmit, activeId }: Props) {
   return activeId === id ? (
     <ItemActive
       title={title}
@@ -22,7 +21,6 @@ function Item ({ title, id, onEdit, onDelete, onSubmit, activeId }: Props) {
       title={title}
       id={id}
       onEdit={onEdit}
-      onDelete={onDelete}
     />
   )
 }
