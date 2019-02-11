@@ -3,10 +3,11 @@ import { useEffect, useReducer, useState } from 'react'
 import fetch from 'isomorphic-unfetch'
 import Layout from '../components/Layout'
 import ListItem from '../components/Item'
-import { Item, ItemData } from '../types'
+import { Item } from '../types'
 import itemsReducer from '../reducers/itemsReducer'
 import Dispatch from '../utils/dispatch'
 import InputGroup from '../components/InputGroup'
+import { putItem } from '../utils/request'
 
 interface Props {
   items: Item[]
@@ -14,6 +15,7 @@ interface Props {
 
 const Index: NextFunctionComponent<Props> = props => {
   const [activeId, setActiveId] = useState('')
+  const [newValue, setNewValue] = useState('')
   const [state, dispatch] = useReducer(itemsReducer, { items: props.items })
   useEffect(() => {
     console.info(state)
@@ -24,9 +26,16 @@ const Index: NextFunctionComponent<Props> = props => {
   }
 
   const handleAdd = (value: string) => {
-    dispatch({
-      type: 'add',
-      content: value
+    putItem({
+      content: value,
+      done: false
+    }).then(id => {
+      dispatch({
+        type: 'add',
+        content: value,
+        id
+      })
+      setNewValue('')
     })
   }
 
@@ -35,7 +44,12 @@ const Index: NextFunctionComponent<Props> = props => {
       <Dispatch.Provider value={dispatch}>
         <form action=''>
           <div className='input-field'>
-            <InputGroup onSubmit={handleAdd}/>
+            <InputGroup
+              value={newValue}
+              setValue={setNewValue}
+              onSubmit={handleAdd}
+              placeholder='New item'
+            />
           </div>
         </form>
         <ul className='collection'>
@@ -51,24 +65,23 @@ const Index: NextFunctionComponent<Props> = props => {
           ))}
         </ul>
       </Dispatch.Provider>
+      <style jsx>{`
+        .input-field {
+          display: flex;
+          align-items: center;
+        }
+        `}</style>
     </Layout>
   )
 }
 
-const getItems = (items: ItemData[]): Item[] => (
-  items.map(item => ({
-    ...item,
-    active: false
-  }))
-)
-
 Index.getInitialProps = async (): Promise<Props> => {
   const res = await fetch('http://localhost:4000/items')
-  const itemsData = await res.json()
+  const items = await res.json()
 
-  console.log(`Show data fetched. Count: ${itemsData.length}`)
+  console.log(`Show data fetched. Count: ${items.length}`)
 
-  return { items: getItems(itemsData) }
+  return { items }
 }
 
 export default Index

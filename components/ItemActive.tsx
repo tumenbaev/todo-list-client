@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import css from 'styled-jsx/css'
 import DispatchContext from '../utils/dispatch'
 import InputGroup from './InputGroup'
@@ -11,6 +11,7 @@ interface Props {
 
 function ItemLink ({ title, id, onSubmit }: Props) {
   const dispatch = useContext(DispatchContext)
+  const [value, setValue] = useState(title)
 
   const handleSubmit = (id: string, value: string) => {
     dispatch({
@@ -25,7 +26,9 @@ function ItemLink ({ title, id, onSubmit }: Props) {
   return (
     <li className='collection-item'>
       <InputGroup
-        value={title}
+        value={value}
+        setValue={setValue}
+        placeholder='Item content'
         onSubmit={value => handleSubmit(id, value)}
       />
       <style jsx>{style}</style>

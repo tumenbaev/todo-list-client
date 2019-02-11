@@ -1,21 +1,19 @@
-import { useState } from 'react'
-
 interface Props {
   value?: string
+  placeholder: string
   onSubmit (value: string): void
+  setValue (value: string): void
 }
-function InputGroup ({ value = '', onSubmit }: Props) {
-  const [newValue, setNewValue] = useState(value)
-
+function InputGroup ({ value = '', setValue, onSubmit, placeholder }: Props) {
   return (
     <>
       <input
-        placeholder='Item content'
+        placeholder={placeholder}
         type='text'
-        value={newValue}
-        onChange={e => setNewValue(e.target.value)}
+        value={value}
+        onChange={e => setValue(e.target.value)}
       />
-      <a onClick={() => onSubmit(newValue)} className='secondary-content'>
+      <a onClick={() => onSubmit(value)} className='secondary-content'>
         <i className='material-icons'>check_circle</i>
       </a>
     </>

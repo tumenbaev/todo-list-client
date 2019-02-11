@@ -1,17 +1,14 @@
-export interface ItemData {
+export interface Item {
   id: string,
   content: string,
-  done: string
-}
-
-export type Item = ItemData & {
-  active: boolean
+  done: boolean
 }
 
 export interface Action {
   type: string
   id?: string
-  content?: string
+  content?: string,
+  done?: boolean
 }
 
 export interface State {
