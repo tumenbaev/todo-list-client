@@ -2,15 +2,16 @@ import { useContext } from 'react'
 import css from 'styled-jsx/css'
 import DispatchContext from '../utils/dispatch'
 import { deleteItem } from '../utils/request'
+import { Item } from '../types'
 
 interface Props {
-  title: string
-  id: string
+  item: Item,
   onEdit (id: string): void
 }
 
-function Item ({ title, id, onEdit }: Props) {
+function ItemNormal ({ item, onEdit }: Props) {
   const dispatch = useContext(DispatchContext)
+  const { id, content } = item
 
   const handleDelete = () => {
     deleteItem(id).then(() => {
@@ -18,7 +19,7 @@ function Item ({ title, id, onEdit }: Props) {
         type: 'delete',
         id
       })
-    })
+    }).catch(console.error)
   }
 
   console.info('render normal')
@@ -26,7 +27,7 @@ function Item ({ title, id, onEdit }: Props) {
     <li className='collection-item'>
       <label>
         <input type='checkbox' />
-        <span>{title}</span>
+        <span>{content}</span>
       </label>
       <a onClick={handleDelete} className='secondary-content'>
         <i className='material-icons'>delete</i>
@@ -50,4 +51,4 @@ const style = css`
   }
 `
 
-export default Item
+export default ItemNormal

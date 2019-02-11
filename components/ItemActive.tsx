@@ -2,25 +2,30 @@ import { useContext, useState } from 'react'
 import css from 'styled-jsx/css'
 import DispatchContext from '../utils/dispatch'
 import InputGroup from './InputGroup'
+import { Item } from '../types'
+import { postItem } from '../utils/request'
 
 interface Props {
-  title: string
-  id: string
+  item: Item
   onSubmit (id: string, value: string): void
 }
 
-function ItemLink ({ title, id, onSubmit }: Props) {
+function ItemActive ({ item, onSubmit }: Props) {
   const dispatch = useContext(DispatchContext)
-  const [value, setValue] = useState(title)
+  const [value, setValue] = useState(item.content)
 
-  const handleSubmit = (id: string, value: string) => {
-    dispatch({
-      type: 'edit',
-      id,
+  const handleSubmit = (value: string) => {
+    const newItem = {
+      ...item,
       content: value
-    })
-
-    onSubmit(id, value)
+    }
+    postItem(newItem).then(updatedItem => {
+      dispatch({
+        type: 'edit',
+        ...updatedItem
+      })
+      onSubmit(item.id, value)
+    }).catch(console.error)
   }
 
   return (
@@ -29,7 +34,7 @@ function ItemLink ({ title, id, onSubmit }: Props) {
         value={value}
         setValue={setValue}
         placeholder='Item content'
-        onSubmit={value => handleSubmit(id, value)}
+        onSubmit={handleSubmit}
       />
       <style jsx>{style}</style>
     </li>
@@ -52,4 +57,4 @@ const style = css`
   }
 `
 
-export default ItemLink
+export default ItemActive

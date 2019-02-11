@@ -36,7 +36,7 @@ const Index: NextFunctionComponent<Props> = props => {
         id
       })
       setNewValue('')
-    })
+    }).catch(console.error)
   }
 
   return (
@@ -56,9 +56,8 @@ const Index: NextFunctionComponent<Props> = props => {
           {state.items.map((item: Item) => (
             <ListItem
               key={item.id}
-              id={item.id}
+              item={item}
               activeId={activeId}
-              title={item.content}
               onEdit={setActiveId}
               onSubmit={handleSubmit}
             />

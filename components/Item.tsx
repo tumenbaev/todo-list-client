@@ -1,28 +1,26 @@
 import ItemNormal from './ItemNormal'
 import ItemActive from './ItemActive'
+import { Item } from '../types'
 
 interface Props {
   activeId: string
-  title: string
-  id: string
+  item: Item,
   onEdit (id: string): void
   onSubmit (id: string, value: string): void
 }
 
-function Item ({ title, id, onEdit, onSubmit, activeId }: Props) {
-  return activeId === id ? (
+function ListItem ({ item, onEdit, onSubmit, activeId }: Props) {
+  return activeId === item.id ? (
     <ItemActive
-      title={title}
-      id={id}
+      item={item}
       onSubmit={onSubmit}
     />
   ) : (
     <ItemNormal
-      title={title}
-      id={id}
+      item={item}
       onEdit={onEdit}
     />
   )
 }
 
-export default Item
+export default ListItem
