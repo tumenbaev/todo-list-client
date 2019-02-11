@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import css from 'styled-jsx/css'
 import DispatchContext from '../utils/dispatch'
+import { deleteItem } from '../utils/request'
 
 interface Props {
   title: string
@@ -12,9 +13,11 @@ function Item ({ title, id, onEdit }: Props) {
   const dispatch = useContext(DispatchContext)
 
   const handleDelete = () => {
-    dispatch({
-      type: 'delete',
-      id
+    deleteItem(id).then(() => {
+      dispatch({
+        type: 'delete',
+        id
+      })
     })
   }
 

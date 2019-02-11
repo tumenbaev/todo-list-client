@@ -4,11 +4,15 @@ import { Item } from '../types'
 type Payload = Partial<Item>
 type Method = 'get' | 'post' | 'put' | 'delete'
 
-function request (method: Method, data?: Payload) {
+function request (method: Method, data?: Payload | string) {
+  const url = 'http://localhost:4000/items'
   if (method === 'get') {
-    return fetch('http://localhost:4000/items')
+    return fetch(url)
   }
-  return fetch('http://localhost:4000/items', {
+  if (typeof data === 'string') {
+    return fetch(`${url}/${data}`, { method })
+  }
+  return fetch(url, {
     method,
     headers: {
       'Content-Type': 'application/json'
@@ -32,6 +36,6 @@ export function putItem (item: Payload): Promise<string> {
     .then(response => response.text()) as unknown as Promise<string>
 }
 
-export function deleteItem (item: Payload): Promise<void> {
-  return request('delete', item) as unknown as Promise<void>
+export function deleteItem (id: string): Promise<void> {
+  return request('delete', id) as unknown as Promise<void>
 }
