@@ -1,5 +1,5 @@
 import itemReducer from './itemReducer'
-import { Action, Item, State } from '../types'
+import { Action, State } from '../types'
 import without from 'ramda/src/without'
 import find from 'ramda/src/find'
 import propEq from 'ramda/src/propEq'

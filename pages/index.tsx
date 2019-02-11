@@ -6,6 +6,7 @@ import ListItem from '../components/Item'
 import { Item, ItemData } from '../types'
 import itemsReducer from '../reducers/itemsReducer'
 import Dispatch from '../utils/dispatch'
+import InputGroup from '../components/InputGroup'
 
 interface Props {
   items: Item[]
@@ -22,12 +23,19 @@ const Index: NextFunctionComponent<Props> = props => {
     setActiveId('')
   }
 
+  const handleAdd = (value: string) => {
+    dispatch({
+      type: 'add',
+      content: value
+    })
+  }
+
   return (
     <Layout>
       <Dispatch.Provider value={dispatch}>
         <form action=''>
           <div className='input-field'>
-            <input placeholder='New item' id='newItem' type='text' />
+            <InputGroup onSubmit={handleAdd}/>
           </div>
         </form>
         <ul className='collection'>

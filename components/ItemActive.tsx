@@ -1,6 +1,7 @@
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import css from 'styled-jsx/css'
 import DispatchContext from '../utils/dispatch'
+import InputGroup from './InputGroup'
 
 interface Props {
   title: string
@@ -9,10 +10,9 @@ interface Props {
 }
 
 function ItemLink ({ title, id, onSubmit }: Props) {
-  const [value, setValue] = useState(title)
   const dispatch = useContext(DispatchContext)
 
-  const handleSubmit = (id: string) => {
+  const handleSubmit = (id: string, value: string) => {
     dispatch({
       type: 'edit',
       id,
@@ -24,15 +24,10 @@ function ItemLink ({ title, id, onSubmit }: Props) {
 
   return (
     <li className='collection-item'>
-      <input
-        placeholder='Item content'
-        type='text'
-        value={value}
-        onChange={e => setValue(e.target.value)}
+      <InputGroup
+        value={title}
+        onSubmit={value => handleSubmit(id, value)}
       />
-      <a onClick={() => handleSubmit(id)} className='secondary-content'>
-        <i className='material-icons'>check_circle</i>
-      </a>
       <style jsx>{style}</style>
     </li>
   )
