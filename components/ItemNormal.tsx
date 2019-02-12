@@ -1,4 +1,4 @@
-import { useContext, useState, ChangeEvent } from 'react'
+import { useContext, useState, ChangeEvent, memo } from 'react'
 import css from 'styled-jsx/css'
 import DispatchContext from '../utils/dispatch'
 import { deleteItem, postItem } from '../utils/request'
@@ -79,4 +79,4 @@ const style = css`
   }
 `
 
-export default ItemNormal
+export default memo(ItemNormal)

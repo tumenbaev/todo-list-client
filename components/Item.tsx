@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { memo } from 'react'
 import ItemNormal from './ItemNormal'
 import ItemActive from './ItemActive'
 import { Item } from '../types'
@@ -17,13 +17,11 @@ function ListItem ({ item, onEdit, onSubmit, activeId }: Props) {
       onSubmit={onSubmit}
     />
   ) : (
-    useMemo(() => (
-      <ItemNormal
-        item={item}
-        onEdit={onEdit}
-      />
-    ), [])
+    <ItemNormal
+      item={item}
+      onEdit={onEdit}
+    />
   )
 }
 
-export default ListItem
+export default memo(ListItem)

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, memo } from 'react'
 import css from 'styled-jsx/css'
 import DispatchContext from '../utils/dispatch'
 import InputGroup from './InputGroup'
@@ -64,4 +64,4 @@ const style = css`
   }
 `
 
-export default ItemActive
+export default memo(ItemActive)
