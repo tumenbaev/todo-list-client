@@ -19,13 +19,19 @@ function ItemActive ({ item, onSubmit }: Props) {
       ...item,
       content: value
     }
-    postItem(newItem).then(updatedItem => {
+
+    dispatch({
+      type: 'edit',
+      ...newItem
+    })
+    onSubmit(item.id, value)
+    postItem(newItem).catch(error => {
       dispatch({
         type: 'edit',
-        ...updatedItem
+        ...item
       })
-      onSubmit(item.id, value)
-    }).catch(console.error)
+      console.error(error)
+    })
   }
 
   return (

@@ -5,7 +5,8 @@ function itemReducer (item: Item, action: Action): Item {
     case 'edit':
       return action.content ? {
         ...item,
-        content: action.content
+        content: action.content,
+        done: Boolean(action.done)
       } : item
     default:
       return item

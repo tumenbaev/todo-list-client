@@ -1,7 +1,7 @@
-import { useContext } from 'react'
+import { useContext, useState, ChangeEvent } from 'react'
 import css from 'styled-jsx/css'
 import DispatchContext from '../utils/dispatch'
-import { deleteItem } from '../utils/request'
+import { deleteItem, postItem } from '../utils/request'
 import { Item } from '../types'
 
 interface Props {
@@ -11,7 +11,8 @@ interface Props {
 
 function ItemNormal ({ item, onEdit }: Props) {
   const dispatch = useContext(DispatchContext)
-  const { id, content } = item
+  const { id, content, done } = item
+  const [checked, setChecked] = useState(done)
 
   const handleDelete = () => {
     deleteItem(id).then(() => {
@@ -21,13 +22,36 @@ function ItemNormal ({ item, onEdit }: Props) {
       })
     }).catch(console.error)
   }
+  const handleChecked = (event: ChangeEvent<HTMLInputElement>) => {
+    const { checked } = event.target
+    const newItem = {
+      ...item,
+      done: checked
+    }
+    setChecked(checked)
+
+    postItem(newItem)
+      .then(updatedItem => {
+        dispatch({
+          type: 'edit',
+          ...updatedItem
+        })
+      }).catch(error => {
+        setChecked(!checked)
+        console.error(error)
+      })
+  }
 
   console.info('render normal')
   return (
     <li className='collection-item'>
       <label>
-        <input type='checkbox' />
-        <span>{content}</span>
+        <input
+          type='checkbox'
+          checked={checked}
+          onChange={handleChecked}
+        />
+        <span className={checked ? 'done' : ''}>{content}</span>
       </label>
       <a onClick={handleDelete} className='secondary-content'>
         <i className='material-icons'>delete</i>
@@ -48,6 +72,10 @@ const style = css`
 
   a:hover {
     opacity: 0.6;
+  }
+
+  .done {
+    text-decoration: line-through;
   }
 `
 
