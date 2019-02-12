@@ -10,6 +10,7 @@ interface Props {
 }
 
 function ItemNormal ({ item, onEdit }: Props) {
+  console.info('render normal')
   const dispatch = useContext(DispatchContext)
   const { id, content, done } = item
   const [checked, setChecked] = useState(done)
@@ -42,7 +43,6 @@ function ItemNormal ({ item, onEdit }: Props) {
       })
   }
 
-  console.info('render normal')
   return (
     <li className='collection-item'>
       <label>

@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import ItemNormal from './ItemNormal'
 import ItemActive from './ItemActive'
 import { Item } from '../types'
@@ -16,10 +17,12 @@ function ListItem ({ item, onEdit, onSubmit, activeId }: Props) {
       onSubmit={onSubmit}
     />
   ) : (
-    <ItemNormal
-      item={item}
-      onEdit={onEdit}
-    />
+    useMemo(() => (
+      <ItemNormal
+        item={item}
+        onEdit={onEdit}
+      />
+    ), [])
   )
 }
 

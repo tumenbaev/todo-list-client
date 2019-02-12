@@ -11,6 +11,7 @@ interface Props {
 }
 
 function ItemActive ({ item, onSubmit }: Props) {
+  console.info('render active')
   const dispatch = useContext(DispatchContext)
   const [value, setValue] = useState(item.content)
 

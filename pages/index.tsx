@@ -1,5 +1,5 @@
 import { NextFunctionComponent } from 'next'
-import { useEffect, useReducer, useState } from 'react'
+import { useCallback, useReducer, useState } from 'react'
 import fetch from 'isomorphic-unfetch'
 import Layout from '../components/Layout'
 import ListItem from '../components/Item'
@@ -17,15 +17,12 @@ const Index: NextFunctionComponent<Props> = props => {
   const [activeId, setActiveId] = useState('')
   const [newValue, setNewValue] = useState('')
   const [state, dispatch] = useReducer(itemsReducer, { items: props.items })
-  useEffect(() => {
-    console.info(state)
-  })
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     setActiveId('')
-  }
+  }, [])
 
-  const handleAdd = (value: string) => {
+  const handleAdd = useCallback((value: string) => {
     putItem({
       content: value,
       done: false
@@ -37,7 +34,7 @@ const Index: NextFunctionComponent<Props> = props => {
       })
       setNewValue('')
     }).catch(console.error)
-  }
+  }, [])
 
   return (
     <Layout>
