@@ -18,7 +18,7 @@
     "express": "^4.16.4",
     "isomorphic-unfetch": "^3.0.0",
     "materialize-css": "^1.0.0-rc.2",
-    "next": "^7.0.2",
+    "next": "^11.1.0",
     "ramda": "^0.26.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
